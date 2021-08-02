@@ -28,10 +28,45 @@ The Chicago and New York City files also have the following two columns:
 + Gender
 + Birth Year
 
-The original files are much larger and messier, and you don't need to download them. These files had more columns and they differed in format in many cases. Some data wrangling was performed by the Udacity staff to condense these files to the above core six columns to make your analysis and the evaluation of your Python skills more straightforward. In the Data Wrangling course that comes later in the Data Analyst Nanodegree program, students learn how to wrangle the dirtiest, messiest datasets, so don't worry, you won't miss out on learning this important skill!
+The original files are much larger and messier, and you don't need to download them. These files had more columns and they differed in format in many cases. Some data wrangling was performed by the Udacity staff to condense these files to the above core six columns.
 
 ## The Program
 The program is written in Python making use of the Numpy and Pandas libraries.
 
+### Program Requirements
+* Language: Python 3.8 or above
+* Libraries: Pandas, Numpy and Time
+
+### Running the program
+The program is in the `bikeshare.py` file. Download the file and run the following command in the terminal: `python bikeshare.py`.
+
+### Program Details
+The program receives user input for the city, month and days of the week for which the user wants to view data.
+
+Upon input the program displays the following calculated statistics:
+
+#### Popular times of travel (i.e., occurs most often in the start time)
+
++ most common month
++ most common day of week
++ most common hour of day
+
+#### Popular stations and trip
+
++ most common start station
++ most common end station
++ most common trip from start to end (i.e., most frequent combination of start station and end station)
+
+#### Trip duration
+
++ total travel time
++ average travel time
+
+#### User info
+
++ counts of each user type
++ counts of each gender (only available for NYC and Chicago)
++ earliest, most recent, most common year of birth (only available for NYC and Chicago)
+
 ### Acknowledments
-It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
+Pending
