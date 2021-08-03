@@ -69,4 +69,5 @@ Upon input the program displays the following calculated statistics:
 + earliest, most recent, most common year of birth (only available for NYC and Chicago)
 
 ### Acknowledments
-Pending
+* [pandas docs](http://pandas.pydata.org/pandas-docs/stable/) - the documentation the pandas library offered a vast amount of help to understand the implemention methods used.
+* [Udacity](https://udacity.com) - Udacity's Programming for Data Science with Python Nanodegree Program and their instructors were extremely helpful.
