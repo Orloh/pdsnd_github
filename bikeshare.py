@@ -62,7 +62,7 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hello! Let\'s explore some US bikeshare data!')
-    # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
+
     city = get_city()
 
     # Get user to filter by month, day both, or no filter
@@ -265,11 +265,11 @@ def print_n(index, data, n):
 def print_raw_data(df):
     """Displays the raw data 5 rows at a time."""
     while True:
-    display_data = input('\nWould you like to see 5 lines of raw data? Enter yes or no.\n')
-    if display_data.lower() != 'yes':
-        break
-    print(tabulate(df_default.iloc[np.arange(0+i,5+i)], headers ="keys"))
-    i+=5
+        display_data = input('\nWould you like to see 5 lines of raw data? Enter yes or no.\n')
+        if display_data.lower() != 'yes':
+            break
+        print(tabulate(df_default.iloc[np.arange(0+i,5+i)], headers ="keys"))
+        i+=5
 
 def main():
     while True:
