@@ -1,6 +1,7 @@
 import time
 import pandas as pd
 import numpy as np
+import tabulate
 
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york': 'new_york_city.csv',
@@ -20,11 +21,11 @@ def get_city():
             return city
         else:
             city = input('You typed wrong the city. Type: Chicago, New York or Washington: ').lower()
-            
+
 def get_month():
     """
     Asks user to specify a month to analyze.
-    
+
     Returns:
     (str) month - name of the month ("jan", "feb", "mar", "apr", "may", "jun") to filter by, or "all" to apply no month filter
     """
@@ -39,7 +40,7 @@ def get_month():
 def get_day():
     """
     Asks user to specify a day to analyze.
-    
+
     Returns:
     (str) day - name of the day ("sun", "mon", "tue", "wed", "thu", "fri", "sat") to filter by, or "all" to apply no day filter
     """
@@ -50,7 +51,7 @@ def get_day():
             return day
         else:
             day = input('You typed wrong the day of the week. Type: mon, tue, wed, thu, fri, sat, sun  or all: ').lower()
-    
+
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
@@ -61,8 +62,8 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hello! Let\'s explore some US bikeshare data!')
-    # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    city = get_city()            
+
+    city = get_city()
 
     # Get user to filter by month, day both, or no filter
     choice = input('Would you like to filter by month, day, both or none? ').lower()
@@ -76,7 +77,7 @@ def get_filters():
             day = get_day()
             break
         elif choice == 'both':
-            month = get_month() 
+            month = get_month()
             day = get_day()
             break
         elif choice == 'none':
@@ -122,19 +123,19 @@ def load_data(city, month, day):
     df = pd.read_csv(CITY_DATA[city])
     #Renames the first column of the data frame to Id
     df.rename(columns = {df.columns[0]: "Id"}, inplace=True)
-    
+
     #Changes to datetime datatype
     df['Start Time'] = pd.to_datetime(df['Start Time'])
     df['End Time'] = pd.to_datetime(df['End Time'])
-    
+
     # Filter by month
     if month != 'all':
         df = filter_month(df, month)
-    
+
     # Filter by day of the week
     if day != 'all':
         df = filter_day(df, day)
-    
+
     return df
 
 def time_stats(df, month, day):
@@ -177,7 +178,7 @@ def station_stats(df):
     # Display most frequent combination of start station and end station trip
     common_combo = df['Start Station'].str.cat(df['End Station'], sep =" - ").value_counts()
     print('The most frequent combination of start and end station trip is: {} (count: {}).'.format(common_combo.index[0], common_combo.iloc[0]))
-    
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
@@ -194,7 +195,7 @@ def trip_duration_stats(df):
     # Display mean travel time
     mean_travel_time = df['Trip Duration'].mean(axis=0, skipna=True)
     print('The mean travel time by users is: {:.2f} minutes'.format(mean_travel_time))
-  
+
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -213,7 +214,7 @@ def user_stats(df):
             print('{}s: {}'.format(index, value))
     except:
         print('There is no User Type data to share')
-              
+
     # Display counts of gender
     print('\nGender Count:')
     try:
@@ -236,9 +237,9 @@ def user_stats(df):
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-    
+
 def get_confirmation(city, month, day):
-    """ 
+    """
     Asks user to confirm the selected city and  filters.
 
     Returns:
@@ -246,39 +247,35 @@ def get_confirmation(city, month, day):
     """
     print("You chose the following \nCity:{}\nMonth:{}\nDay:{}".format(city.title(), month, day))
     confirmation = input("Do you wish to continue? Type: 'yes' or 'no': ").lower()
-    while True: 
-        if confirmation == 'yes': 
+    while True:
+        if confirmation == 'yes':
             print('-'*40)
             return True
-        elif confirmation == 'no':   
+        elif confirmation == 'no':
             print('-'*40)
             return False
         else:
             confirmation = input("You typed wrong your choice? Type: 'yes' or 'no': ".format(city.title())).lower()
- 
+
 def print_n(index, data, n):
-"""Displays n rows of a dataframe starting from the given index."""    
+    """Displays n rows of a dataframe starting from the given index."""
   print(data[index: index + n])
   return index + n
 
 def print_raw_data(df):
-    """Displays the raw data 5 rows at a time."""    
-    c = input('Do you wish to see the first five entries of the raw data? Type "yes" or "no": ') 
-    index = 0
+    """Displays the raw data 5 rows at a time."""
     while True:
-        if c == 'no':
+        display_data = input('\nWould you like to see 5 lines of raw data? Enter yes or no.\n')
+        if display_data.lower() != 'yes':
             break
-        elif c == 'yes':
-            index = print_n(index, df, 5)
-            c = input('Do you wish to see the next five entries of raw data? Type "yes" or "no": ')
-        else:
-            c = input('You typed wrong your choice: Type "yes" or "no": ')
+        print(tabulate(df_default.iloc[np.arange(0+i,5+i)], headers ="keys"))
+        i+=5
 
 def main():
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
-     
+
         confirmation = get_confirmation(city, month, day)
         if not confirmation:
             continue
